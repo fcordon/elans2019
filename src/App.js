@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React from 'react'
+import { Col, Card, Row } from 'react-bootstrap'
+
+import chcLogo from './img/backgroundHD/logo-champigny.png'
+import Menu from './components/Menu'
+
+import './scss/App.scss'
+import './scss/journal.min.css'
 
 function App() {
   return (
-    <div className="App">
+    <section className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Menu />
       </header>
-    </div>
+      <section className="App-content">
+        <Col xs={12} md={6} lg={4}>
+          <Card>
+            <Card.Header>
+              <Card.Title>L'équipe</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Row>
+                Les Elans loisir de Champigny sont une équipe de hockey qui évolue en Ligue 1 du Trophé Fédéral Loisir.
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
+      </section>
+    </section>
   );
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-function Menu() {
+const Menu = () => {
   return (
     <Navbar bg="light" expand="lg">
       <div className="container">
@@ -22,7 +22,7 @@ function Menu() {
             <LinkContainer to={"/classement"}>
               <Nav.Link eventKey={2}>Classement</Nav.Link>
             </LinkContainer>
-            <LinkContainer to={"/classement"}>
+            <LinkContainer to={"/contact"}>
               <Nav.Link eventKey={3}>Nous contacter</Nav.Link>
             </LinkContainer>
           </Nav>

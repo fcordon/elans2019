@@ -1,4 +1,6 @@
-## Site des Elans de Champigny Loisir 2019
+## Site des Elans Loisir de Champigny 2019
+
+Retrouvez ici le code concernant le site internet fait en ReactJS, node.js
 
 ## Available Scripts
 

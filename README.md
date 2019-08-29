@@ -2,7 +2,13 @@
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the root project directory, you can run:
+
+### `nodemon`
+
+Runs node.js server
+
+In the project directory "src", you can run:
 
 ### `npm run dev`
 

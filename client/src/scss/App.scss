@@ -1,0 +1,53 @@
+.App {
+  &-header {
+    font-size: calc(10px + 2vmin);
+  }
+
+  &-container {
+    .home {
+      &-intro {
+        img {
+          width: 100%;
+        }
+      }
+
+      &-compteRebours {
+        transform: translateY(-50%);
+        width: 100%;
+        background-color: #252525;
+        color: #ffffff;
+        max-width: 1080px;
+        padding: 43px 38px;
+        margin: 0 auto;
+        line-height: 20px;
+
+        @media screen and (max-width: 812px) {
+          transform: translateY(0);
+          text-align: center;
+        }
+
+        &-decompte {
+          font-size: 65px;
+          text-align: center;
+
+          @media screen and (max-width: 812px) {
+            font-size: 29px;
+          }
+        }
+      }
+
+      &-equipe {
+        margin: 20px;
+
+        img {
+          width: 100%;
+          border-radius: 5%;
+        }
+
+        &-article {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

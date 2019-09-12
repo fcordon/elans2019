@@ -5,6 +5,15 @@
 
   &-container {
     .home {
+      .row {
+        margin: 50px 20px;
+      }
+
+      .grey{
+        background-color: #252525;
+        color: #fff;
+      }
+
       &-intro {
         img {
           width: 100%;
@@ -37,8 +46,6 @@
       }
 
       &-equipe {
-        margin: 20px;
-
         img {
           width: 100%;
           border-radius: 5%;
@@ -46,6 +53,18 @@
 
         &-article {
           margin-top: 20px;
+        }
+      }
+
+      &-classement {
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+        border-bottom: 1px solid grey;
+
+        &.row {
+          margin: 0;
+          padding: 10px 0;
         }
       }
     }

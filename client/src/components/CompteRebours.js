@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 const CompteRebours = (props) => {
   const [decompte, setDecompte] = useState('0 jours 0h 0min 0s')
@@ -21,7 +21,7 @@ const CompteRebours = (props) => {
   setInterval(diffDate, 1000)
 
   return (
-    <Row className='home-compteRebours'>
+    <div className='home-compteRebours'>
       <Col xs={12} md={4} className='home-compteRebours-infos'>
         <h3>Prochain Match</h3>
         <p>1ère Journée du trophée loisir - Match aller</p>
@@ -29,7 +29,7 @@ const CompteRebours = (props) => {
       <Col xs={12} md={8} className='home-compteRebours-decompte'>
         <p>{decompte}</p>
       </Col>
-    </Row>
+    </div>
   )
 }
 

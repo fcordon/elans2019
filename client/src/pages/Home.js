@@ -4,7 +4,7 @@ import axios from 'axios'
 import Intro from '../components/Intro'
 import CompteRebours from '../components/CompteRebours'
 import Equipe from '../components/Equipe'
-import Calendrier from '../components/Calendrier'
+import ClassementContainer from '../container/ClassementContainer'
 
 const Home = () => {
   const getSchedule = async () => {
@@ -39,20 +39,14 @@ const Home = () => {
     .catch(err => console.log(err))
   }, [todayDate])
 
-  const [calendrier, setCalendrier] = useState([])
-
-  useEffect(() => {
-    getSchedule()
-    .then(res => setCalendrier(res))
-    .catch(err => console.log(err))
-  }, [todayDate])
-
   return (
     <section className='home'>
       <Intro />
       <CompteRebours gameDate={gameArray[0]} />
       <Equipe />
-      {calendrier.map((data, i) => <Calendrier key={i} {...data} />)}
+      <div className='grey'>
+        <ClassementContainer />
+      </div>
     </section>
   )
 }

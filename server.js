@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 
 // Models
 const Calendrier = require('./models/calendrier')
+const Classement = require('./models/classement')
 
 // Server
 app.listen(port, () => console.log(`Listening on port ${port}`))
@@ -51,4 +52,11 @@ app.get('/calendrier', async (req, res) => {
   const calendrier = await Calendrier.find()
   const sortCalendrier = calendrier.sort((a,b) => a.timestamp > b.timestamp)
   return res.json(sortCalendrier)
+})
+
+//---->>>> GET CALENDRIER <<<<----
+app.get('/classement', async (req, res) => {
+  const classement = await Classement.find()
+  const sortClassement = classement.sort((a,b) => a.points > b.points)
+  return res.json(sortClassement)
 })

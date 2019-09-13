@@ -21,7 +21,7 @@ const ClassementContainer = () => {
     getClassement()
     .then(res => setClassement(res))
     .catch(err => console.log(err))
-  }, [classement])
+  }, [])
 
   return (
     <div className='home-classement'>

@@ -5,6 +5,8 @@
 
   &-container {
     .home {
+      color: #252525;
+
       .row {
         margin: 50px 20px;
       }
@@ -57,14 +59,31 @@
       }
 
       &-classement {
-        color: #fff;
+        padding: 20px 0;
         text-align: center;
-        font-size: 12px;
-        border-bottom: 1px solid grey;
 
-        &.row {
+        h2 {
+          padding-bottom: 20px;
+        }
+
+        .row {
           margin: 0;
           padding: 10px 0;
+        }
+
+        &-header {
+          border-bottom: 1px solid grey;
+          text-transform: capitalize;
+        }
+
+        &-content {
+          color: #fff;
+          font-size: 12px;
+          border-bottom: 1px solid grey;
+
+          .equipe-name {
+            text-transform: capitalize;
+          }
         }
       }
     }

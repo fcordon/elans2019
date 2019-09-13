@@ -1,9 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Col } from 'react-bootstrap'
 
 const CompteRebours = (props) => {
+  const getSchedule = async () => {
+    const response = await axios.get('/calendrier')
+    const body = await response.data
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body
+  }
+
+  const [todayDate] = useState(new Date())
+  const [gameArray, setGameArray] = useState([])
+
+  useEffect(() => {
+    let dateArray = []
+    let gameDate = todayDate.getTime()
+
+    getSchedule()
+    .then(res => {
+      res.map((data) => {
+        let nextGame = new Date(data.gameDate).getTime()
+
+        if(nextGame - gameDate > 0) {
+          dateArray.push(nextGame)
+        }
+
+        return setGameArray(dateArray)
+      })
+    })
+    .catch(err => console.log(err))
+  }, [todayDate])
+
   const [decompte, setDecompte] = useState('0 jours 0h 0min 0s')
-  const gameDate = props.gameDate
+  const gameDate = gameArray[0]
 
   function diffDate() {
     if(gameDate !== undefined) {

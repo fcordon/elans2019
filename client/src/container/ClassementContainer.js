@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Row, Col } from 'react-bootstrap'
 
 import Classement from '../components/Classement'
 
@@ -21,10 +22,27 @@ const ClassementContainer = () => {
     getClassement()
     .then(res => setClassement(res))
     .catch(err => console.log(err))
-  }, [todayDate])
+  })
 
   return (
-    <section className='home-classment'>
+    <section className='home-classement'>
+      <Col xs={12}>
+        <h2>Classement Trophée Loisir Ligue 1</h2>
+      </Col>
+      <Row className='home-classement-header'>
+        <Col xs={2}>
+          place
+        </Col>
+        <Col xs={6}>
+          équipe
+        </Col>
+        <Col xs={2}>
+          points
+        </Col>
+        <Col xs={2}>
+          malus
+        </Col>
+      </Row>
       {classement.map((data, i) => <Classement key={i} {...data} place={i} />)}
     </section>
   )

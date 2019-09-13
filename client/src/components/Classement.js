@@ -8,7 +8,7 @@ const Classement = (props) => {
         {props.place + 1}
       </Col>
       <Col xs={6}>
-        {props.nom} de {props.equipe}
+        {props.nom} de <span className='equipe-name'>{props.equipe}</span>
       </Col>
       <Col xs={2}>
         {props.points}

@@ -5,7 +5,6 @@ import { Row, Col } from 'react-bootstrap'
 import Classement from '../components/Classement'
 
 const ClassementContainer = () => {
-
   const getClassement = async () => {
     const response = await axios.get('/classement')
     const body = await response.data
@@ -22,11 +21,11 @@ const ClassementContainer = () => {
     getClassement()
     .then(res => setClassement(res))
     .catch(err => console.log(err))
-  })
+  }, [classement])
 
   return (
-    <section className='home-classement'>
-      <Col xs={12}>
+    <div className='home-classement'>
+      <Col xs={12} className='home-classement-title'>
         <h2>Classement Trophée Loisir Ligue 1</h2>
       </Col>
       <Row className='home-classement-header'>
@@ -44,7 +43,7 @@ const ClassementContainer = () => {
         </Col>
       </Row>
       {classement.map((data, i) => <Classement key={i} {...data} place={i} />)}
-    </section>
+    </div>
   )
 }
 

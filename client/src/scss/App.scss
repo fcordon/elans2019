@@ -7,10 +7,6 @@
     .home {
       color: #252525;
 
-      .row {
-        margin: 50px 20px;
-      }
-
       .grey{
         background-color: #252525;
         color: #fff;
@@ -48,6 +44,8 @@
       }
 
       &-equipe {
+        margin: 50px 20px 0;
+
         img {
           width: 100%;
           border-radius: 5%;
@@ -59,11 +57,16 @@
       }
 
       &-classement {
-        padding: 20px 0;
         text-align: center;
 
-        h2 {
-          padding-bottom: 20px;
+        &-title {
+          background-image: url('../img/backgrounds/classement.png');
+          background-size: 100% 100%;
+
+          h2 {
+            color: #fff;
+            padding-bottom: 20px;
+          }
         }
 
         .row {
@@ -77,12 +80,29 @@
         }
 
         &-content {
-          color: #fff;
           font-size: 12px;
           border-bottom: 1px solid grey;
 
           .equipe-name {
             text-transform: capitalize;
+          }
+        }
+      }
+
+      &-footer {
+        padding: 50px 20px;
+
+        &-contact {
+          a {
+            color: #fff;
+          }
+          
+          h3 {
+            margin-bottom: 20px;
+          }
+
+          &-icon {
+            width: 30px;
           }
         }
       }

@@ -12,10 +12,10 @@ const Home = () => {
       <Intro />
       <CompteRebours />
       <Equipe />
+      <ClassementContainer />
       <div className='grey'>
-        <ClassementContainer />
+        <Footer />
       </div>
-      <Footer />
     </section>
   )
 }

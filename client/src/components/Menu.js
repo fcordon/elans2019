@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Menu = () => {
@@ -19,12 +20,12 @@ const Menu = () => {
               <Nav.Link eventKey={1}>Calendrier</Nav.Link>
             </LinkContainer>
             <NavDropdown.Divider />
-            <LinkContainer to={"/classement"}>
-              <Nav.Link eventKey={2}>Classement</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to={"/contact"}>
-              <Nav.Link eventKey={3}>Nous contacter</Nav.Link>
-            </LinkContainer>
+            <AnchorLink className='nav-link' href='#classement'>
+              Classement
+            </AnchorLink>
+            <AnchorLink className='nav-link' href='#footer'>
+              Nous contacter
+            </AnchorLink>
           </Nav>
         </Navbar.Collapse>
       </div>

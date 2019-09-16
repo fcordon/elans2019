@@ -7,7 +7,7 @@ import twitter from '../img/contact/twitter_icon.png'
 
 const Footer = () => {
   return (
-    <Row className='home-footer'>
+    <Row id='footer' className='home-footer'>
       <Col xs={12} md={6} className='home-footer-contact'>
         <h3>Nous Contacter</h3>
         <p><img className='home-footer-contact-icon' src={email} alt='icon email' /><a href='mailto:elansloisir@gmail.com'> elansloisir@gmail.com</a></p>

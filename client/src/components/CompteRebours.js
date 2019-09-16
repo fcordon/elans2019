@@ -18,14 +18,14 @@ const CompteRebours = (props) => {
 
   useEffect(() => {
     let dateArray = []
-    let gameDate = todayDate.getTime()
+    let today = todayDate.getTime()
 
     getSchedule()
     .then(res => {
       res.map((data) => {
         let nextGame = new Date(data.gameDate).getTime()
 
-        if(nextGame - gameDate > 0) {
+        if(nextGame - today > 0) {
           dateArray.push(nextGame)
         }
 
@@ -36,12 +36,11 @@ const CompteRebours = (props) => {
   }, [todayDate])
 
   const [decompte, setDecompte] = useState('0 jours 0h 0min 0s')
-  const gameDate = gameArray[0]
 
   function diffDate() {
-    if(gameDate !== undefined) {
+    if(gameArray.length > 0) {
       let todayDate = new Date().getTime()
-      let distance = gameDate - todayDate
+      let distance = gameArray[0] - todayDate
       let day = Math.floor(distance / (1000 * 60 * 60 * 24))
       let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))

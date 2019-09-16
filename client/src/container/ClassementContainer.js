@@ -24,7 +24,7 @@ const ClassementContainer = () => {
   }, [])
 
   return (
-    <div className='home-classement'>
+    <div id='classement' className='home-classement'>
       <Col xs={12} className='home-classement-title'>
         <h2>Classement Trophée Loisir Ligue 1</h2>
       </Col>

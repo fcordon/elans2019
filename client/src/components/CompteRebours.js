@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 const CompteRebours = (props) => {
   const getSchedule = async () => {
@@ -54,13 +54,15 @@ const CompteRebours = (props) => {
 
   return (
     <div className='home-compteRebours'>
-      <Col xs={12} md={4} className='home-compteRebours-infos'>
-        <h3>Prochain Match</h3>
-        <p>1ère Journée du trophée loisir - Match aller</p>
-      </Col>
-      <Col xs={12} md={8} className='home-compteRebours-decompte'>
-        <p>{decompte}</p>
-      </Col>
+      <Row className='home-compteRebours-content'>
+        <Col xs={12} md={4} className='home-compteRebours-infos'>
+          <h3>Prochain Match</h3>
+          <p>1ère Journée du trophée loisir - Match aller</p>
+        </Col>
+        <Col xs={12} md={8} className='home-compteRebours-decompte'>
+          {decompte}
+        </Col>
+      </Row>
     </div>
   )
 }

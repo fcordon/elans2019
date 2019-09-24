@@ -11,11 +11,13 @@ const Home = () => {
     <section className='home'>
       <Intro />
       <CompteRebours />
-      <Equipe />
-      <ClassementContainer />
-      <div className='grey'>
-        <Footer />
-      </div>
+      <section className='home-content'>
+        <Equipe />
+        <ClassementContainer />
+        <section className='grey'>
+          <Footer />
+        </section>
+      </section>
     </section>
   )
 }

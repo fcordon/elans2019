@@ -7,7 +7,10 @@ const Classement = (props) => {
       <Col xs={2}>
         {props.place + 1}
       </Col>
-      <Col xs={6}>
+      <Col className='equipe-logo' md={2}>
+        <img src={'./equipes/logo-' + props.equipe + '-100x100.png'} alt={props.nom + props.equipe} />
+      </Col>
+      <Col xs={6} md={4} className='home-classement-content-name'>
         {props.nom} de <span className='equipe-name'>{props.equipe}</span>
       </Col>
       <Col xs={2}>

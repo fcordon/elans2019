@@ -14,7 +14,7 @@ const Calendrier = (props) => {
     let gameHours = bddDate.getHours()
     let gameMin = bddDate.getMinutes()
 
-    return setGameDate(gameDay + ' ' + gameMonth + ' ' + gameYear + ' ' + gameHours + 'h' + gameMin)
+    return setGameDate(gameDay + ' ' + gameMonth + ' ' + gameYear + ' à ' + gameHours + 'h' + gameMin)
   }, [props.gameDate])
 
   return (
@@ -25,10 +25,10 @@ const Calendrier = (props) => {
       <Col xs={12} className='home-calendrier-equipe'>
         <Row>
           <Col className='home-calendrier-equipe-img' xs={6}>
-            <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe1+'.png' : '/equipes/logo-'+props.equipe2+'.png'} alt={props.patinoire === 'home' ? props.equipe1 : props.equipe2} />
+            <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe1+'-100x100.png' : '/equipes/logo-'+props.equipe2+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe1 : props.equipe2} />
           </Col>
           <Col className='home-calendrier-equipe-img' xs={6}>
-            <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe2+'.png' : '/equipes/logo-'+props.equipe1+'.png'} alt={props.patinoire === 'home' ? props.equipe2 : props.equipe1} />
+            <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe2+'-100x100.png' : '/equipes/logo-'+props.equipe1+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe2 : props.equipe1} />
           </Col>
         </Row>
         <Row>

@@ -1,6 +1,24 @@
 .App {
   font-size: calc(10px + 2vmin);
 
+  &-header {
+    a {
+      color: #252525;
+      transition: all 0.5s;
+      text-shadow: none;
+
+      &:hover {
+        color: #0000FF;
+        transition: all 0.5s;
+        text-shadow: 6px 6px 8px rgba(0,0,0,0.75);
+      }
+
+      a:active {
+        color: #000000;
+      }
+    }
+  }
+
   &-container {
     .home {
       color: #252525;
@@ -71,6 +89,9 @@
         img {
           width: 100%;
           border-radius: 5%;
+          -webkit-box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
+          -moz-box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
+          box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
         }
 
         &-article {
@@ -81,21 +102,13 @@
       &-classement {
         text-align: center;
 
-        &-table {
-          @media screen and (min-width: 1441px) and (max-width: 1920px) {
-            max-width: 1280px;
-            margin: 50px auto;
-            border: 1px solid grey;
-            -webkit-box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
-            -moz-box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
-            box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
-          }
-        }
-
         &-title {
           background-image: url('../img/backgrounds/classement.png');
           background-size: 100% 100%;
           height: 20vh;
+          -webkit-box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
+          -moz-box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
+          box-shadow: 0px 0px 20px 0px rgba(37,37,37,0.5);
 
           @media screen and (min-width: 1441px) and (max-width: 1920px) {
             background-attachment: fixed;
@@ -123,6 +136,17 @@
           padding: 10px 0;
         }
 
+        &-table {
+          @media screen and (min-width: 1441px) and (max-width: 1920px) {
+            max-width: 1280px;
+            margin: 50px auto;
+            border: 1px solid grey;
+            -webkit-box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
+            -moz-box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
+            box-shadow: 10px 10px 20px -8px rgba(37,37,37,0.5);
+          }
+        }
+
         &-header {
           border-bottom: 1px solid grey;
           text-transform: capitalize;
@@ -137,13 +161,43 @@
           border-bottom: 1px solid grey;
           font-size: calc(8px + 2vw);
 
+          & > div {
+            align-self: center;
+          }
+
           @media screen and (min-width: 1441px) and (max-width: 1920px) {
             font-size: 1.5vw;
+          }
+
+          &-name {
+            text-align: center;
+
+            @media screen and (min-width: 1024px) and (max-width: 1920px) {
+              text-align: left;
+            }
+          }
+
+          .equipe-logo {
+            display: none;
+
+            @media screen and (min-width: 1024px) and (max-width: 1920px) {
+              display: block;
+            }
+
+            img {
+              width: 100px;
+            }
           }
 
           .equipe-name {
             text-transform: capitalize;
           }
+        }
+      }
+
+      &-calendrier {
+        & > div {
+          padding-right: 0;
         }
       }
 
@@ -154,6 +208,7 @@
 
         @media screen and (min-width: 1441px) and (max-width: 1920px) {
           padding: 50px 20px 0;
+          font-size: calc(6px + 2vmin);
         }
 
         &-contact {

@@ -6,10 +6,10 @@ import equipe from '../img/equipes/loisirs_2018_2019.jpg'
 const Equipe = () => {
   return (
     <Row className='home-equipe'>
-      <Col xs={12} lg={5} className='home-equipe-img'>
+      <Col xs={12} lg={6} className='home-equipe-img'>
         <img src={equipe} alt='Equipe des Elans loisir de Champigny' />
       </Col>
-      <Col xs={12} lg={7} className='home-equipe-article'>
+      <Col xs={12} lg={6} className='home-equipe-article'>
         <h3>L'équipe des Elans Loisir...</h3>
         <p>...est une équipe de hockey qui évolue en Ligue 1 du Trophée Fédéral Loisir. Nous sommes une équipe qui aime s'amuser mais aussi la compétition.</p>
       </Col>

@@ -24,26 +24,28 @@ const ClassementContainer = () => {
   }, [])
 
   return (
-    <div id='classement' className='home-classement'>
+    <section id='classement' className='home-classement'>
       <Col xs={12} className='home-classement-title'>
         <h2>Classement Trophée Loisir Ligue 1</h2>
       </Col>
-      <Row className='home-classement-header'>
-        <Col xs={2}>
-          place
-        </Col>
-        <Col xs={6}>
-          équipe
-        </Col>
-        <Col xs={2}>
-          points
-        </Col>
-        <Col xs={2}>
-          malus
-        </Col>
-      </Row>
-      {classement.map((data, i) => <Classement key={i} {...data} place={i} />)}
-    </div>
+      <section className='home-classement-table'>
+        <Row className='home-classement-header'>
+          <Col xs={2}>
+            place
+          </Col>
+          <Col xs={6}>
+            équipe
+          </Col>
+          <Col xs={2}>
+            points
+          </Col>
+          <Col xs={2}>
+            malus
+          </Col>
+        </Row>
+        {classement.map((data, i) => <Classement key={i} {...data} place={i} />)}
+      </section>
+    </section>
   )
 }
 

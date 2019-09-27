@@ -15,16 +15,16 @@ const Menu = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <LinkContainer to={"/equipe"}>
-              <Nav.Link eventKey={1}>L'équipe</Nav.Link>
-            </LinkContainer>
             <LinkContainer to={"/calendrier"}>
-              <Nav.Link eventKey={2}>Calendrier</Nav.Link>
+              <Nav.Link eventKey={1}>Calendrier</Nav.Link>
             </LinkContainer>
-            <NavDropdown.Divider />
             <AnchorLink className='nav-link' href='#classement'>
               Classement
             </AnchorLink>
+            <NavDropdown.Divider />
+            <LinkContainer to={"/stats"}>
+              <Nav.Link eventKey={2}>Les Stats</Nav.Link>
+            </LinkContainer>
             <AnchorLink className='nav-link' href='#footer'>
               Nous contacter
             </AnchorLink>

@@ -53,13 +53,13 @@ const CompteRebours = (props) => {
   setInterval(diffDate, 1000)
 
   return (
-    <div className='home-compteRebours'>
-      <Row className='home-compteRebours-content'>
-        <Col xs={12} md={4} className='home-compteRebours-infos'>
+    <div className='compteRebours'>
+      <Row className='compteRebours-content'>
+        <Col xs={12} md={4} className='compteRebours-infos'>
           <h3>Prochain Match</h3>
           <p>Trophée loisir 2019 / 2020 - Match aller</p>
         </Col>
-        <Col xs={12} md={8} className='home-compteRebours-decompte'>
+        <Col xs={12} md={8} className='compteRebours-decompte'>
           {decompte}
         </Col>
       </Row>

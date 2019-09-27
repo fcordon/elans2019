@@ -18,36 +18,34 @@ const Calendrier = (props) => {
   }, [props.gameDate])
 
   return (
-    <Col className='home-calendrier' xs={12} md={6} lg={3}>
+    <Col xs={12} md={6} lg={3}>
       <Card border={props.resultat === 'victoire' ? 'success' : props.resultat === 'défaite' ? 'danger' : 'secondary'}>
         <Card.Header>{gameDate}</Card.Header>
         <Card.Body>
           <Card.Title>
             <Row>
-              <Col className='home-calendrier-equipe-name' xs={5}>
+              <Col className='calendrier-equipe-name' xs={5}>
                 {props.patinoire === 'home' ? props.equipe1 : props.equipe2}
               </Col>
-              <Col className='home-calendrier-equipe-name' xs={{ span: 5, offset: 2 }}>
+              <Col className='calendrier-equipe-name' xs={{ span: 5, offset: 2 }}>
                 {props.patinoire === 'home' ? props.equipe2 : props.equipe1}
               </Col>
             </Row>
           </Card.Title>
-          <Card.Text>
-            <Row>
-              <Col className='home-calendrier-equipe-img' xs={4}>
-                <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe1+'-100x100.png' : '/equipes/logo-'+props.equipe2+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe1 : props.equipe2} />
-              </Col>
-              <Col className='home-calendrier-score' xs={4}>
-                {props.score1 === '' ? 'Vs' : props.patinoire === 'home' ? props.score1 + ' - ' + props.score2 : props.score2 + ' - ' + props.score1}
-              </Col>
-              <Col className='home-calendrier-equipe-img' xs={4}>
-                <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe2+'-100x100.png' : '/equipes/logo-'+props.equipe1+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe2 : props.equipe1} />
-              </Col>
-            </Row>
-            <Col xs={12} className={props.resultat === 'victoire' ? 'success home-calendrier-resultat' : props.resultat === 'défaite' ? 'danger home-calendrier-resultat' : 'secondary home-calendrier-resultat'}>
-              Résultat du match : <span>{props.resultat}</span>
+          <Row>
+            <Col className='calendrier-equipe-img' xs={4}>
+              <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe1+'-100x100.png' : '/equipes/logo-'+props.equipe2+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe1 : props.equipe2} />
             </Col>
-          </Card.Text>
+            <Col className='calendrier-score' xs={4}>
+              {props.score1 === '' ? 'Vs' : props.patinoire === 'home' ? props.score1 + ' - ' + props.score2 : props.score2 + ' - ' + props.score1}
+            </Col>
+            <Col className='calendrier-equipe-img' xs={4}>
+              <img src={props.patinoire === 'home' ? '/equipes/logo-'+props.equipe2+'-100x100.png' : '/equipes/logo-'+props.equipe1+'-100x100.png'} alt={props.patinoire === 'home' ? props.equipe2 : props.equipe1} />
+            </Col>
+          </Row>
+          <Col xs={12} className={props.resultat === 'victoire' ? 'success calendrier-resultat' : props.resultat === 'défaite' ? 'danger calendrier-resultat' : 'secondary calendrier-resultat'}>
+            Résultat du match : <span>{props.resultat}</span>
+          </Col>
         </Card.Body>
       </Card>
     </Col>

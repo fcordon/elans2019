@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Container, Row } from 'react-bootstrap'
 
 import Intro from '../components/Intro'
 import CompteRebours from '../components/CompteRebours'
@@ -27,12 +28,16 @@ const CalendrierPage = () => {
 
   return (
     <section className='home'>
-      <Intro />
-      <CompteRebours />
-      {calendrier.map((data, i) => <Calendrier key={i} {...data} place={i} />)}
-      <section className='grey'>
-        <Footer />
-      </section>
+        <Intro />
+        <CompteRebours />
+        <Container fluid>
+          <Row>
+            {calendrier.map((data, i) => <Calendrier key={i} {...data} place={i} />)}
+          </Row>
+        </Container>
+        <section className='grey'>
+          <Footer />
+        </section>
     </section>
   )
 }

@@ -14,11 +14,11 @@ import App from './App'
 // Services import
 import * as serviceWorker from './serviceWorker'
 
-const history = createBrowserHistory()
+const bowserHistory = createBrowserHistory()
 
 ReactDOM.render((
-  <Router history={history}>
-    <App/>
+  <Router history={bowserHistory}>
+    <App url={bowserHistory}/>
   </Router>
 ), document.getElementById('root'))
 

@@ -26,6 +26,10 @@ const Menu = (props) => {
             </LinkContainer>
             {path === '/' && <AnchorLink className='nav-link' href='#classement'>Classement</AnchorLink>}
             <NavDropdown.Divider />
+            <LinkContainer to={"/lequipe"}>
+              <Nav.Link eventKey={2}>L'équipe</Nav.Link>
+            </LinkContainer>
+            <NavDropdown.Divider />
             <AnchorLink className='nav-link' href='#footer'>
               Nous contacter
             </AnchorLink>

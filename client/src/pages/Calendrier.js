@@ -6,8 +6,9 @@ import Calendrier from '../components/Calendrier'
 
 const CalendrierPage = () => {
   const getCalendrier = async () => {
-    const response = await axios.get('/calendrier')
+    const response = await axios.get('/calendrierbdd')
     const body = await response.data
+    console.log('calendrier : ', body)
 
     if (response.status !== 200) {
       throw Error(body.message)

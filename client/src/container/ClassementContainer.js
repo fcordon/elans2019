@@ -6,7 +6,7 @@ import Classement from '../components/Classement'
 
 const ClassementContainer = () => {
   const getClassement = async () => {
-    const response = await axios.get('/classement')
+    const response = await axios.get('/classementbdd')
     const body = await response.data
 
     if (response.status !== 200) {

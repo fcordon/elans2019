@@ -4,7 +4,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Menu = (props) => {
-  const [path, setPath] = useState('')
+  const [path, setPath] = useState(props.pathname.location.pathname)
 
   props.pathname.listen((location) => {
     return setPath(location.pathname)

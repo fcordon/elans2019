@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap'
 
 const CompteRebours = (props) => {
   const getSchedule = async () => {
-    const response = await axios.get('/calendrier')
+    const response = await axios.get('/calendrierbdd')
     const body = await response.data
 
     if (response.status !== 200) {

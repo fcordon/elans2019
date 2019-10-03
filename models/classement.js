@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
   nom: {type: String},
   points: {type: Number},
   malus: {type: Number}
-}, { collection : 'classement' });
+}, { collection : 'classementbdd' });
 
 const Classement = mongoose.model('classement', userSchema);
 module.exports = Classement;

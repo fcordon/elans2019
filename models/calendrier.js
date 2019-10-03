@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   equipe2: {type: String},
   patinoire: {type: String},
   resultat: {type: String}
-}, { collection : 'calendrier' });
+}, { collection : 'calendrierbdd' });
 
 const Calendrier = mongoose.model('calendrier', userSchema);
 module.exports = Calendrier;

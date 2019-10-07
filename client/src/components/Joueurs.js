@@ -3,16 +3,6 @@ import axios from 'axios'
 import { Row, Col, Card } from 'react-bootstrap'
 
 const Joueurs = (props) => {
-  const getJoueur = async () => {
-    const response = await axios.get('/joueurs')
-    const body = await response.data
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body
-  }
-
   const [joueurs, setJoueurs] = useState([])
 
   useEffect(() => {
@@ -21,9 +11,33 @@ const Joueurs = (props) => {
     .catch(err => console.log(err))
   }, [])
 
+  const getJoueur = async () => {
+    const response = await axios.get('/joueurs')
+    const body = await response.data
+    const data = [...body]
+
+    data.sort((a,b) => {
+      const numeroA = a.numero
+      const numeroB = b.numero
+
+      let comparison = 0;
+      if (numeroA > numeroB) {
+        comparison = 1;
+      } else if (numeroA < numeroB) {
+        comparison = -1;
+      }
+      return comparison;
+    })
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return data
+  }
+
   return (
-    <Row>
-      <Col xs={12} md={4}>
+    <Row className="justify-content-center">
+      <Col xs={12} sm={12} lg={4} xl={3} className='equipe-joueurs'>
         <Card>
           <Card.Header>Attaquants</Card.Header>
           <Card.Body>
@@ -45,7 +59,7 @@ const Joueurs = (props) => {
           </Card.Body>
         </Card>
       </Col>
-      <Col xs={12} md={4}>
+      <Col xs={12} sm={12} lg={4} xl={3} className='equipe-joueurs'>
         <Card>
           <Card.Header>Défenseurs</Card.Header>
           <Card.Body>
@@ -67,7 +81,7 @@ const Joueurs = (props) => {
           </Card.Body>
         </Card>
       </Col>
-      <Col xs={12} md={4}>
+      <Col xs={12} sm={12} lg={4} xl={3} className='equipe-joueurs'>
         <Card>
           <Card.Header>Gardiens</Card.Header>
           <Card.Body>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Container, Row } from 'react-bootstrap'
 
 import Calendrier from '../components/Calendrier'
+import CompteRebours from '../components/CompteRebours'
 
 const CalendrierPage = () => {
   const getCalendrier = async () => {
@@ -25,6 +26,7 @@ const CalendrierPage = () => {
 
   return (
     <section className='calendrier'>
+      <CompteRebours />
       <Container fluid>
         <Row>
           {calendrier.map((data, i) => <Calendrier key={i} {...data} place={i} />)}

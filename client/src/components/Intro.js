@@ -1,11 +1,9 @@
 import React from 'react'
 
-import backIntro from '../img/backgrounds/elans_loisir_1920x500.jpg'
-
-const Intro = () => {
+const Intro = (props) => {
   return (
     <div className='intro'>
-      <img src={backIntro} alt='Les Elans loisir de Champigny' />
+      <img src={props.image} alt='Les Elans loisir de Champigny' />
     </div>
   );
 }

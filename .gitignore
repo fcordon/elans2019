@@ -41,5 +41,5 @@ yarn-error.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
 
-# /client/src/img/psd
+/client/src/img/psd
 # /client/src/img/fonts

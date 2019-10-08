@@ -46,7 +46,7 @@ const Stats = (props) => {
             let assists = joueur.assists
             let points = joueur.points
             let penalites = joueur.penalites
-            
+
             return (
               <tr key={i}>
                 <td>
@@ -73,6 +73,7 @@ const Stats = (props) => {
               </tr>
             )
           }
+          return true
         })}
         </tbody>
       </Table>

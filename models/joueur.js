@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   buts: {type: Number},
   assists: {type: Number},
   points: {type: Number},
+  penalites : {type: Number},
   position: {type: String},
   numero: {type: Number}
 }, { collection : 'joueurs' });

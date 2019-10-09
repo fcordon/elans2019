@@ -32,6 +32,9 @@ const Menu = (props) => {
             <LinkContainer to={"/statistiques"}>
               <Nav.Link eventKey={3}>Les Stats</Nav.Link>
             </LinkContainer>
+            <LinkContainer to={"/top-five"}>
+              <Nav.Link eventKey={4}>Les Top 5</Nav.Link>
+            </LinkContainer>
             <NavDropdown.Divider />
             <AnchorLink className='nav-link' href='#footer'>
               Nous contacter

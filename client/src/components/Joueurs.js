@@ -1,13 +1,68 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col, Card, Table } from 'react-bootstrap'
 
 const Joueurs = (props) => {
-  const [joueurs, setJoueurs] = useState([])
+  const [attaquants, setAttaquants] = useState([])
 
   useEffect(() => {
     getJoueur()
-    .then(res => setJoueurs(res))
+    .then(res => {
+      let joueurTable = []
+
+      res.map((joueur) => {
+        if(joueur.position === 'attaquant') {
+          let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero}
+          joueurTable.push(joueurObjet)
+        }
+
+        return joueurTable
+      })
+
+      return setAttaquants(joueurTable)
+    })
+    .catch(err => console.log(err))
+  }, [])
+
+  const [defenseurs, setDefenseurs] = useState([])
+
+  useEffect(() => {
+    getJoueur()
+    .then(res => {
+      let joueurTable = []
+
+      res.map((joueur) => {
+        if(joueur.position === 'défenseur') {
+          let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero}
+          joueurTable.push(joueurObjet)
+        }
+
+        return joueurTable
+      })
+
+      return setDefenseurs(joueurTable)
+    })
+    .catch(err => console.log(err))
+  }, [])
+
+  const [gardiens, setGardiens] = useState([])
+
+  useEffect(() => {
+    getJoueur()
+    .then(res => {
+      let joueurTable = []
+
+      res.map((joueur) => {
+        if(joueur.position === 'gardien') {
+          let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero}
+          joueurTable.push(joueurObjet)
+        }
+
+        return joueurTable
+      })
+
+      return setGardiens(joueurTable)
+    })
     .catch(err => console.log(err))
   }, [])
 
@@ -41,21 +96,25 @@ const Joueurs = (props) => {
         <Card>
           <Card.Header>Attaquants</Card.Header>
           <Card.Body>
-            {joueurs.map((joueur, i) => {
-              return (
-                <Row key={i}>
-                  <Col>
-                    {joueur.position === 'attaquant' && joueur.nom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'attaquant' && joueur.prenom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'attaquant' && joueur.numero}
-                  </Col>
-                </Row>
-              )
-            })}
+            <Table responsive striped hover>
+              <tbody>
+                {attaquants.map((joueur, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>
+                        {joueur.nom}
+                      </td>
+                      <td>
+                        {joueur.prenom}
+                      </td>
+                      <td>
+                        {joueur.numero}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </Table>
           </Card.Body>
         </Card>
       </Col>
@@ -63,21 +122,25 @@ const Joueurs = (props) => {
         <Card>
           <Card.Header>Défenseurs</Card.Header>
           <Card.Body>
-            {joueurs.map((joueur, i) => {
-              return (
-                <Row key={i}>
-                  <Col>
-                    {joueur.position === 'défenseur' && joueur.nom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'défenseur' && joueur.prenom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'défenseur' && joueur.numero}
-                  </Col>
-                </Row>
-              )
-            })}
+            <Table responsive striped hover>
+              <tbody>
+                {defenseurs.map((joueur, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>
+                        {joueur.nom}
+                      </td>
+                      <td>
+                        {joueur.prenom}
+                      </td>
+                      <td>
+                        {joueur.numero}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </Table>
           </Card.Body>
         </Card>
       </Col>
@@ -85,21 +148,25 @@ const Joueurs = (props) => {
         <Card>
           <Card.Header>Gardiens</Card.Header>
           <Card.Body>
-            {joueurs.map((joueur, i) => {
-              return (
-                <Row key={i}>
-                  <Col>
-                    {joueur.position === 'gardien' && joueur.nom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'gardien' && joueur.prenom}
-                  </Col>
-                  <Col>
-                    {joueur.position === 'gardien' && joueur.numero}
-                  </Col>
-                </Row>
-              )
-            })}
+            <Table responsive striped hover>
+              <tbody>
+                {gardiens.map((joueur, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>
+                        {joueur.nom}
+                      </td>
+                      <td>
+                        {joueur.prenom}
+                      </td>
+                      <td>
+                        {joueur.numero}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </Table>
           </Card.Body>
         </Card>
       </Col>

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Row, Col, Card, Table } from 'react-bootstrap'
 
-import backPointeurs from '../img/backgrounds/background_pointeurs.jpg'
-
 const Top = () => {
   const [pointeurs, setPointeurs] = useState([])
 

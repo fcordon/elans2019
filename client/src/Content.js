@@ -6,6 +6,7 @@ import CalendrierPage from "./pages/Calendrier"
 import EquipePage from "./pages/Equipe"
 import StatsPage from "./pages/Stats"
 import TopPage from "./pages/Top"
+import AdminPage from "./pages/Admin"
 
 const Main = () => (
   <main>
@@ -15,6 +16,7 @@ const Main = () => (
       <Route path='/lequipe' component={EquipePage}/>
       <Route path='/statistiques' component={StatsPage}/>
       <Route path='/top-five' component={TopPage}/>
+      <Route path='/admin' component={AdminPage}/>
     </Switch>
   </main>
 )

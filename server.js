@@ -42,14 +42,6 @@ async function main() {
 
 main().catch(console.dir)
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + 'client/build/index.html'))
-})
-
-app.get('/calendrier', (req, res) => {
-  res.sendFile(path.join(__dirname + 'client/build/index.html'))
-})
-
 // START API
 
 //---->>>> GET CALENDRIER <<<<----
@@ -70,4 +62,8 @@ app.get('/classementbdd', async (req, res) => {
 app.get('/joueurs', async (req, res) => {
   const joueurs = await Joueurs.find()
   return res.json(joueurs)
+})
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
 })

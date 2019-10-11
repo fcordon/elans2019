@@ -3,13 +3,14 @@ import axios from 'axios'
 import { Row, Col, Accordion, Card, Button, Table, Form } from 'react-bootstrap'
 
 const Admin = () => {
+  // -----------> Update des Stats de joueur <-----------
   const [stats, setStats] = useState([])
 
   useEffect(() => {
     getJoueur()
     .then(res => setStats(res))
     .catch(err => console.log(err))
-  }, [])
+  }, [stats])
 
   const getJoueur = async () => {
     const response = await axios.get('/joueurs')
@@ -44,26 +45,73 @@ const Admin = () => {
       let match = document.getElementById(joueur._id + '-match')
       let buts = document.getElementById(joueur._id + '-buts')
       let assists = document.getElementById(joueur._id + '-assists')
-      let points = document.getElementById(joueur._id + '-points')
       let penalites = document.getElementById(joueur._id + '-penalites')
 
       if (joueur.match !== parseInt(match.value)) {
         joueurStats.push({
-          'nom': joueur.nom,
-          'prenom': joueur.prenom,
+          'joueurID': joueur._id,
           'match': parseInt(match.value),
           'buts': parseInt(buts.value),
           'assists': parseInt(assists.value),
-          'points': parseInt(points.value),
-          'penalites': parseInt(penalites.value),
-          'numero': joueur.numero
+          'points': parseInt(buts.value) + parseInt(assists.value),
+          'penalites': parseInt(penalites.value)
         })
       }
 
-      console.log('joueurStats : ', joueurStats)
-
       return joueurStats
+    })
 
+    joueurStats.map((stat, index) => {
+      let stats = {
+        'match': stat.match,
+        'buts': stat.buts,
+        'assists': stat.assists,
+        'points': stat.points,
+        'penalites': stat.penalites
+      }
+
+      axios.put('/joueurs/' + stat.joueurID, stats)
+      .then(function(response) {
+        response.status === 200 && getJoueur().then(res => setStats(res)).catch(err => console.log(err))
+      })
+      .catch(function(err) {
+        console.log('err : ', err)
+      })
+
+      return stats
+    })
+  }
+
+  // -----------> Ajout des matches <-----------
+  function submitMatch(e) {
+    e.preventDefault()
+
+    let gameDate = document.getElementById('gameDate').value
+    let timestamp = new Date(gameDate).getTime() / 1000
+    let equipe1 = document.getElementById('equipe1').value
+    let equipe2 = document.getElementById('equipe2').value
+    let score1 = ''
+    let score2 = ''
+    let patinoire = equipe1 === 'champigny' ? 'home' : 'away'
+    let resultat = 'non joué'
+
+    let newGame = [{
+      'gameDate': gameDate,
+      'timestamp': timestamp,
+      'equipe1': equipe1,
+      'equipe2': equipe2,
+      'score1': score1,
+      'score2': score2,
+      'patinoire': patinoire,
+      'resultat': resultat
+    }]
+
+    axios.post('/calendrierbdd', newGame)
+    .then(function(response) {
+      console.log('response : ', response)
+    })
+    .catch(function(err) {
+      console.log('err : ', err)
     })
   }
 
@@ -112,11 +160,7 @@ const Admin = () => {
                                   <Form.Control type="number" id={joueur._id + '-assists'} defaultValue={joueur.assists}></Form.Control>
                                 </Form.Group>
                               </td>
-                              <td>
-                                <Form.Group>
-                                  <Form.Control type="number" id={joueur._id + '-points'} defaultValue={joueur.points}></Form.Control>
-                                </Form.Group>
-                              </td>
+                              <td>{joueur.points}</td>
                               <td>
                                 <Form.Group>
                                   <Form.Control type="number" id={joueur._id + '-penalites'} defaultValue={joueur.penalites}></Form.Control>
@@ -128,6 +172,30 @@ const Admin = () => {
                       }
                     </tbody>
                   </Table>
+                  <Button type='submit'>Enregistrer</Button>
+                </Form>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
+              Ajouter un match
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>
+                <Form onSubmit={submitMatch}>
+                  <Form.Group>
+                    <Form.Label>Date (September 15, 2019 18:30:00) : </Form.Label>
+                    <Form.Control type="text" id='gameDate' placeholder='September 15, 2019 18:30:00'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Equipe 1 : </Form.Label>
+                    <Form.Control type="text" id='equipe1' placeholder='champigny'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Equipe 2 : </Form.Label>
+                    <Form.Control type="text" id='equipe2' placeholder='champigny'></Form.Control>
+                  </Form.Group>
                   <Button type='submit'>Enregistrer</Button>
                 </Form>
               </Card.Body>

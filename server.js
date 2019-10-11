@@ -51,6 +51,18 @@ app.get('/calendrierbdd', async (req, res) => {
   return res.json(sortCalendrier)
 })
 
+//---->>>> POST CALENDRIER MATCHES <<<<----
+app.post('/calendrierbdd', function(req, res) {
+  let series = req.body;
+
+  Calendrier.create(series, function(err, serie) {
+    if(err) {
+      throw err;
+    }
+    res.json(serie);
+  })
+})
+
 //---->>>> GET CLASSEMENT <<<<----
 app.get('/classementbdd', async (req, res) => {
   const classement = await Classement.find()
@@ -62,6 +74,30 @@ app.get('/classementbdd', async (req, res) => {
 app.get('/joueurs', async (req, res) => {
   const joueurs = await Joueurs.find()
   return res.json(joueurs)
+})
+
+//---->>>> UPDATE JOUEURS <<<<----
+app.put('/joueurs/:_id', function(req, res) {
+  let newData = req.body
+
+  let update = {
+    '$set': {
+      match: newData.match,
+      buts: newData.buts,
+      assists: newData.assists,
+      points: newData.points,
+      penalites: newData.penalites
+    }
+  };
+
+  let options = {new: false};
+
+  Joueurs.updateOne({_id: req.params._id}, update, options, function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  })
 })
 
 app.get('*', (req, res) => {

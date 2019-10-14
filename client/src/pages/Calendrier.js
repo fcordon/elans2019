@@ -19,9 +19,13 @@ const CalendrierPage = () => {
   const [calendrier, setCalendrier] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getCalendrier()
-    .then(res => setCalendrier(res))
+    .then(res => isSubscribed && setCalendrier(res))
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   return (

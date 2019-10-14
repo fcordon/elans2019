@@ -1,23 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "471fe368d39d6ae44857e6aa67cc3324",
+    "revision": "763320b1f9cdc0db939d3484bb2a8110",
     "url": "/index.html"
   },
   {
-    "revision": "f90c8c412efc9c71513a",
-    "url": "/static/css/main.5a9496df.chunk.css"
+    "revision": "05a7dbcbbefe9dc2a8cc",
+    "url": "/static/css/main.f69950cf.chunk.css"
   },
   {
-    "revision": "5f78ab1d0a1ef8fb921e",
-    "url": "/static/js/2.f03ee0a3.chunk.js"
+    "revision": "d41cc9710b38adbe5b3e",
+    "url": "/static/js/2.7dceb25e.chunk.js"
   },
   {
-    "revision": "f90c8c412efc9c71513a",
-    "url": "/static/js/main.e460eb7a.chunk.js"
+    "revision": "05a7dbcbbefe9dc2a8cc",
+    "url": "/static/js/main.212bb4c4.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
+  },
+  {
+    "revision": "4e78a19d86b2c68502808cefee9eb2be",
+    "url": "/static/media/background_buteurs.4e78a19d.jpg"
   },
   {
     "revision": "ee992b443a46b036c2ef662aa8186763",

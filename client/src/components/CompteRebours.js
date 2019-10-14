@@ -7,33 +7,37 @@ const CompteRebours = (props) => {
     const response = await axios.get('/calendrierbdd')
     const body = await response.data
 
+    let dateArray = []
+    let today = new Date().getTime()
+
+    body.map((data) => {
+      let nextGame = new Date(data.gameDate).getTime()
+
+      if(nextGame - today > 0) {
+        dateArray.push(nextGame)
+      }
+
+      return dateArray
+    })
+
     if (response.status !== 200) {
       throw Error(body.message)
     }
-    return body
+    
+    return dateArray
   }
 
-  const [todayDate] = useState(new Date())
   const [gameArray, setGameArray] = useState([])
 
   useEffect(() => {
-    let dateArray = []
-    let today = todayDate.getTime()
+    let isSubscribed = true
 
     getSchedule()
-    .then(res => {
-      res.map((data) => {
-        let nextGame = new Date(data.gameDate).getTime()
-
-        if(nextGame - today > 0) {
-          dateArray.push(nextGame)
-        }
-
-        return setGameArray(dateArray)
-      })
-    })
+    .then(res => isSubscribed && setGameArray(res))
     .catch(err => console.log(err))
-  }, [todayDate])
+
+    return () => isSubscribed = false
+  }, [])
 
   const [decompte, setDecompte] = useState('0 jours 0h 0min 0s')
 

@@ -51,7 +51,7 @@ app.get('/calendrierbdd', async (req, res) => {
   return res.json(sortCalendrier)
 })
 
-//---->>>> POST CALENDRIER MATCHES <<<<----
+//---->>>> POST CALENDRIER <<<<----
 app.post('/calendrierbdd', function(req, res) {
   let series = req.body;
 
@@ -60,6 +60,28 @@ app.post('/calendrierbdd', function(req, res) {
       throw err;
     }
     res.json(serie);
+  })
+})
+
+//---->>>> UPDATE CALENDRIER <<<<----
+app.put('/calendrierbdd/:_id', function(req, res) {
+  let newData = req.body
+
+  let update = {
+    '$set': {
+      score1: newData.score1,
+      score2: newData.score2,
+      resultat: newData.resultat
+    }
+  };
+
+  let options = {new: false};
+
+  Calendrier.updateOne({_id: req.params._id}, update, options, function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
   })
 })
 

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Row, Col, Accordion, Card, Button, Table, Form } from 'react-bootstrap'
+import { Row, Col, Card, Button, Table, Form } from 'react-bootstrap'
 
 const Admin = () => {
   // -----------> Update des Stats de joueur <-----------
   const [stats, setStats] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getJoueur()
-    .then(res => setStats(res))
+    .then(response => {
+      isSubscribed && setStats(response)
+    })
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [stats])
 
   const getJoueur = async () => {
@@ -33,6 +39,7 @@ const Admin = () => {
     if (response.status !== 200) {
       throw Error(body.message)
     }
+
     return data
   }
 
@@ -107,8 +114,67 @@ const Admin = () => {
     }]
 
     axios.post('/calendrierbdd', newGame)
+    .catch(function(err) {
+      console.log('err : ', err)
+    })
+  }
+
+  // -----------> Résultat des matches <-----------
+  const [game, setGame] = useState([])
+
+  useEffect(() => {
+    let isSubscribed = true
+
+    getGame()
+    .then(response => {
+      isSubscribed && setGame(response)
+    })
+    .catch(err => console.log(err))
+
+    return () => isSubscribed = false
+  }, [game])
+
+  const getGame = async () => {
+    const response = await axios.get('/calendrierbdd')
+    const body = await response.data
+
+    let todayDate = new Date()
+    let gameArray = []
+    let today = todayDate.getTime()
+
+    body.map((data) => {
+      let nextGame = new Date(data.gameDate).getTime()
+
+      if(today - nextGame > 0 && data.resultat === 'non joué') {
+        gameArray.push({id:data._id,equipe1:data.equipe1,equipe2:data.equipe2})
+      }
+
+      return gameArray
+    })
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return gameArray
+  }
+
+  function resultMatch(e) {
+    e.preventDefault()
+
+    let gameID = document.getElementById('gameID').value
+    let score1 = document.getElementById('score1').value
+    let score2 = document.getElementById('score2').value
+    let resultat = document.getElementById('resultat').value
+
+    let game = {
+      score1: score1,
+      score2: score2,
+      resultat: resultat
+    }
+
+    axios.put('/calendrierbdd/' + gameID, game)
     .then(function(response) {
-      console.log('response : ', response)
+      response.status === 200 && getGame().then(response => setStats(response)).catch(err => console.log(err))
     })
     .catch(function(err) {
       console.log('err : ', err)
@@ -117,91 +183,123 @@ const Admin = () => {
 
   return (
     <Row className='justify-content-center'>
-      <Col xs={12} xl={6}>
-        <Accordion defaultActiveKey="0">
-          <Card>
-            <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-              Stats des joueurs
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <Form onSubmit={submitStats}>
-                  <Table responsive striped hover>
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Prénom</th>
-                        <th>Match</th>
-                        <th>Buts</th>
-                        <th>Assists</th>
-                        <th>Points</th>
-                        <th>Pénalités</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        stats.map((joueur, index) => {
-                          return (
-                            <tr key={index}>
-                              <td>{joueur.numero}</td>
-                              <td>{joueur.prenom}</td>
-                              <td>
-                                <Form.Group>
-                                  <Form.Control type="number" id={joueur._id + '-match'} defaultValue={joueur.match}></Form.Control>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                <Form.Group>
-                                  <Form.Control type="number" id={joueur._id + '-buts'} defaultValue={joueur.buts}></Form.Control>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                <Form.Group>
-                                  <Form.Control type="number" id={joueur._id + '-assists'} defaultValue={joueur.assists}></Form.Control>
-                                </Form.Group>
-                              </td>
-                              <td>{joueur.points}</td>
-                              <td>
-                                <Form.Group>
-                                  <Form.Control type="number" id={joueur._id + '-penalites'} defaultValue={joueur.penalites}></Form.Control>
-                                </Form.Group>
-                              </td>
-                            </tr>
-                          )
-                        })
-                      }
-                    </tbody>
-                  </Table>
+      <Col xs={12} xl={4}>
+        <Card>
+          <Card.Header>
+            Stats des joueurs
+          </Card.Header>
+          <Card.Body>
+            <Form onSubmit={submitStats}>
+              <Table responsive striped hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Prénom</th>
+                    <th>Match</th>
+                    <th>Buts</th>
+                    <th>Assists</th>
+                    <th>Points</th>
+                    <th>Pénalités</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    stats.map((joueur, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{joueur.numero}</td>
+                          <td>{joueur.prenom}</td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={joueur._id + '-match'} defaultValue={joueur.match}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control className='input-buts' type="number" id={joueur._id + '-buts'} defaultValue={joueur.buts}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={joueur._id + '-assists'} defaultValue={joueur.assists}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>{joueur.points}</td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={joueur._id + '-penalites'} defaultValue={joueur.penalites}></Form.Control>
+                            </Form.Group>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
+              <Button type='submit'>Enregistrer</Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col xs={12} xl={4}>
+        <Card className='addGame'>
+          <Card.Header>
+            Ajouter un match
+          </Card.Header>
+          <Card.Body>
+            <Form onSubmit={submitMatch}>
+              <Form.Group>
+                <Form.Label>Date <small>(September 15, 2019 18:30:00)</small> : </Form.Label>
+                <Form.Control type="text" id='gameDate' placeholder='September 15, 2019 18:30:00'></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Equipe 1 : </Form.Label>
+                <Form.Control type="text" id='equipe1' placeholder='champigny'></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Equipe 2 : </Form.Label>
+                <Form.Control type="text" id='equipe2' placeholder='champigny'></Form.Control>
+              </Form.Group>
+              <Button type='submit'>Enregistrer</Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col xs={12} xl={4}>
+        <Card className='addGame'>
+          <Card.Header>
+            Résultat match
+          </Card.Header>
+          <Card.Body>
+            {game.length > 0 && game.map((match, index) => {
+              return (
+                <Form onSubmit={resultMatch} key={index}>
+                  <Form.Group>
+                    <Form.Label>Game ID :</Form.Label>
+                    <Form.Control type="text" id='gameID' defaultValue={match.id}></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Score {match.equipe1} :</Form.Label>
+                    <Form.Control type="number" id='score1'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Score {match.equipe2} :</Form.Label>
+                    <Form.Control type="number" id='score2'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Résultat du match :</Form.Label>
+                    <Form.Control as='select' id='resultat'>
+                      <option>victoire</option>
+                      <option>défaite</option>
+                      <option>match nul</option>
+                    </Form.Control>
+                  </Form.Group>
                   <Button type='submit'>Enregistrer</Button>
                 </Form>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-          <Card>
-            <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
-              Ajouter un match
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey="1">
-              <Card.Body>
-                <Form onSubmit={submitMatch}>
-                  <Form.Group>
-                    <Form.Label>Date (September 15, 2019 18:30:00) : </Form.Label>
-                    <Form.Control type="text" id='gameDate' placeholder='September 15, 2019 18:30:00'></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Equipe 1 : </Form.Label>
-                    <Form.Control type="text" id='equipe1' placeholder='champigny'></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Equipe 2 : </Form.Label>
-                    <Form.Control type="text" id='equipe2' placeholder='champigny'></Form.Control>
-                  </Form.Group>
-                  <Button type='submit'>Enregistrer</Button>
-                </Form>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
+              )
+            })}
+          </Card.Body>
+        </Card>
       </Col>
     </Row>
   )

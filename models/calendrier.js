@@ -5,6 +5,8 @@ const userSchema = mongoose.Schema({
   timestamp: {type: Number},
   equipe1: {type: String},
   equipe2: {type: String},
+  score1: {type: String},
+  score2: {type: String},
   patinoire: {type: String},
   resultat: {type: String}
 }, { collection : 'calendrierbdd' });

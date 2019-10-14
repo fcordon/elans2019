@@ -23,17 +23,46 @@ const CompteRebours = (props) => {
     if (response.status !== 200) {
       throw Error(body.message)
     }
-    
+
     return dateArray
   }
 
+  const getTeams = async () => {
+    const response = await axios.get('/calendrierbdd')
+    const body = await response.data
+
+    let teamArray = []
+    let today = new Date().getTime()
+
+    body.map((data) => {
+      let nextGame = new Date(data.gameDate).getTime()
+
+      if(nextGame - today > 0) {
+        teamArray.push({equipe1:data.equipe1,equipe2:data.equipe2})
+      }
+
+      return teamArray
+    })
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+
+    return teamArray
+  }
+
   const [gameArray, setGameArray] = useState([])
+  const [nextGame, setNextGame] = useState([])
 
   useEffect(() => {
     let isSubscribed = true
 
     getSchedule()
     .then(res => isSubscribed && setGameArray(res))
+    .catch(err => console.log(err))
+
+    getTeams()
+    .then(res => isSubscribed && setNextGame(res[0]))
     .catch(err => console.log(err))
 
     return () => isSubscribed = false

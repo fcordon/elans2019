@@ -95,7 +95,7 @@ const CompteRebours = (props) => {
   setInterval(diffDate, 1000)
 
   return (
-    <div className='compteRebours' style={{backgroundImage:'url('+nextGame+')'}}>
+    <div className='compteRebours' style={{backgroundImage:'url('+nextGame+')',backgroundSize:'100% 100%',backgroundPosition:'center'}}>
       <Row className='compteRebours-content'>
         <Col xs={12} md={4} className='compteRebours-infos'>
           <h3>Prochain Match</h3>

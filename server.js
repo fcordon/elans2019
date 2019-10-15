@@ -47,8 +47,7 @@ main().catch(console.dir)
 //---->>>> GET CALENDRIER <<<<----
 app.get('/calendrierbdd', async (req, res) => {
   const calendrier = await Calendrier.find()
-  const sortCalendrier = calendrier.sort((a,b) => a.timestamp > b.timestamp)
-  return res.json(sortCalendrier)
+  return res.json(calendrier)
 })
 
 //---->>>> POST CALENDRIER <<<<----

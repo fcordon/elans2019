@@ -52,7 +52,8 @@ const CompteRebours = (props) => {
   }
 
   const [gameArray, setGameArray] = useState([])
-  const [nextGame, setNextGame] = useState([])
+  const [nextGame, setNextGame] = useState({})
+  const windowWidth = window.innerWidth
 
   useEffect(() => {
     let isSubscribed = true
@@ -62,11 +63,19 @@ const CompteRebours = (props) => {
     .catch(err => console.log(err))
 
     getTeams()
-    .then(res => isSubscribed && setNextGame(res[0]))
+    .then(res => {
+      if(isSubscribed) {
+        let backgroundUrl = ''
+
+        windowWidth < 1024 ? backgroundUrl = './games/'+res[0].equipe1+'_'+res[0].equipe2+'_mobile.jpg' : backgroundUrl = './games/'+res[0].equipe1+'_'+res[0].equipe2+'.jpg'
+
+        return setNextGame(backgroundUrl)
+      }
+    })
     .catch(err => console.log(err))
 
     return () => isSubscribed = false
-  }, [])
+  }, [windowWidth])
 
   const [decompte, setDecompte] = useState('0 jours 0h 0min 0s')
 
@@ -86,7 +95,7 @@ const CompteRebours = (props) => {
   setInterval(diffDate, 1000)
 
   return (
-    <div className='compteRebours'>
+    <div className='compteRebours' style={{backgroundImage:'url('+nextGame+')'}}>
       <Row className='compteRebours-content'>
         <Col xs={12} md={4} className='compteRebours-infos'>
           <h3>Prochain Match</h3>

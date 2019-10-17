@@ -24,10 +24,10 @@ const Calendrier = (props) => {
         <Card.Body>
           <Card.Title>
             <Row>
-              <Col className='calendrier-equipe-name' xs={5}>
+              <Col className='calendrier-equipe-name' xs={4}>
                 {props.equipe1}
               </Col>
-              <Col className='calendrier-equipe-name' xs={{ span: 5, offset: 2 }}>
+              <Col className='calendrier-equipe-name' xs={{ span: 4, offset: 4 }}>
                 {props.equipe2}
               </Col>
             </Row>

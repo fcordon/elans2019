@@ -8,11 +8,25 @@ const ClassementContainer = () => {
   const getClassement = async () => {
     const response = await axios.get('/classementbdd')
     const body = await response.data
+    const data = [...body]
+
+    data.sort((a,b) => {
+      const numeroA = a.points
+      const numeroB = b.points
+
+      let comparison = 0;
+      if (numeroA < numeroB) {
+        comparison = 1;
+      } else if (numeroA > numeroB) {
+        comparison = -1;
+      }
+      return comparison;
+    })
 
     if (response.status !== 200) {
       throw Error(body.message)
     }
-    return body
+    return data
   }
 
   const [classement, setClassement] = useState([])

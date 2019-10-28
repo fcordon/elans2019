@@ -87,8 +87,7 @@ app.put('/calendrierbdd/:_id', function(req, res) {
 //---->>>> GET CLASSEMENT <<<<----
 app.get('/classementbdd', async (req, res) => {
   const classement = await Classement.find()
-  const sortClassement = classement.sort((a,b) => a.points < b.points)
-  return res.json(sortClassement)
+  return res.json(classement)
 })
 
 //---->>>> UPDATE CLASSEMENT <<<<----

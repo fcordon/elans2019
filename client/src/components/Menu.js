@@ -11,7 +11,7 @@ const Menu = (props) => {
   })
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" collapseOnSelect fixed="top">
       <div className="container">
         <Navbar.Brand className="navbar-brand">
           <LinkContainer to={"/"}>

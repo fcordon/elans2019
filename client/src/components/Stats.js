@@ -6,9 +6,13 @@ const Stats = (props) => {
   const [stats, setStats] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     gatStats()
-    .then(res => setStats(res))
+    .then(res => isSubscribed && setStats(res))
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   const gatStats = async () => {

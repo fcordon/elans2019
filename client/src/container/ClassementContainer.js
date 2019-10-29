@@ -32,9 +32,13 @@ const ClassementContainer = () => {
   const [classement, setClassement] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getClassement()
-    .then(res => setClassement(res))
+    .then(res => isSubscribed && setClassement(res))
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   return (

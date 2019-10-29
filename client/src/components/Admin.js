@@ -187,7 +187,7 @@ const Admin = () => {
     })
   }
 
-  // -----------> Résultat des matches <-----------
+  // -----------> Résultat Champigny <-----------
   const [game, setGame] = useState([])
 
   useEffect(() => {
@@ -249,6 +249,69 @@ const Admin = () => {
     })
   }
 
+  // -----------> Résultats du championnat <-----------
+  const [champ, setChamp] = useState([])
+
+  useEffect(() => {
+    let isSubscribed = true
+
+    getChamp()
+    .then(response => {
+      isSubscribed && setChamp(response)
+    })
+    .catch(err => console.log(err))
+
+    return () => isSubscribed = false
+  }, [champ])
+
+  const getChamp = async () => {
+    const response = await axios.get('/championnat')
+    const body = await response.data
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body
+  }
+
+  function resultChamp(e) {
+    e.preventDefault()
+
+    let newResultats = []
+
+    champ.map((equipe, index) => {
+      let score1 = document.getElementById(equipe._id + '-score1')
+      let score2 = document.getElementById(equipe._id + '-score2')
+
+      if (equipe.score1 !== parseInt(score1.value)) {
+        newResultats.push({
+          'gameID': equipe._id,
+          'score1': score1.value,
+          'score2': score2.value
+        })
+      }
+
+      return newResultats
+    })
+
+    newResultats.map((equipe, index) => {
+      let equipes = {
+        'score1': equipe.score1,
+        'score2': equipe.score2
+      }
+
+      axios.put('/championnat/' + equipe.gameID, equipes)
+      .then(function(response) {
+        response.status === 200 && getChamp().then(res => setChamp(res)).catch(err => console.log(err))
+      })
+      .catch(function(err) {
+        console.log('err : ', err)
+      })
+
+      return equipes
+    })
+  }
+
   return (
     <Row className='justify-content-center'>
       <Col xs={12} xl={4}>
@@ -306,6 +369,42 @@ const Admin = () => {
               </Table>
               <Button type='submit'>Enregistrer</Button>
             </Form>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col xs={12} xl={4}>
+        <Card className='addGame'>
+          <Card.Header>
+            Résultat match
+          </Card.Header>
+          <Card.Body>
+            {game.length > 0 && game.map((match, index) => {
+              return (
+                <Form onSubmit={resultMatch} key={index}>
+                  <Form.Group>
+                    <Form.Label>Game ID :</Form.Label>
+                    <Form.Control type="text" id='gameID' defaultValue={match.id}></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Score {match.equipe1} :</Form.Label>
+                    <Form.Control type="number" id='score1'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Score {match.equipe2} :</Form.Label>
+                    <Form.Control type="number" id='score2'></Form.Control>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Résultat du match :</Form.Label>
+                    <Form.Control as='select' id='resultat'>
+                      <option>victoire</option>
+                      <option>défaite</option>
+                      <option>match nul</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Button type='submit'>Enregistrer</Button>
+                </Form>
+              )
+            })}
           </Card.Body>
         </Card>
       </Col>
@@ -393,39 +492,49 @@ const Admin = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col xs={12} xl={4}>
+      <Col xs={12} xl={10}>
         <Card className='addGame'>
           <Card.Header>
-            Résultat match
+            Update résultats
           </Card.Header>
           <Card.Body>
-            {game.length > 0 && game.map((match, index) => {
-              return (
-                <Form onSubmit={resultMatch} key={index}>
-                  <Form.Group>
-                    <Form.Label>Game ID :</Form.Label>
-                    <Form.Control type="text" id='gameID' defaultValue={match.id}></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Score {match.equipe1} :</Form.Label>
-                    <Form.Control type="number" id='score1'></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Score {match.equipe2} :</Form.Label>
-                    <Form.Control type="number" id='score2'></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Résultat du match :</Form.Label>
-                    <Form.Control as='select' id='resultat'>
-                      <option>victoire</option>
-                      <option>défaite</option>
-                      <option>match nul</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Button type='submit'>Enregistrer</Button>
-                </Form>
-              )
-            })}
+            <Form onSubmit={resultChamp}>
+              <Table responsive striped hover>
+                <thead>
+                  <tr>
+                    <th>Game ID</th>
+                    <th>Equipe 1</th>
+                    <th>Score 1</th>
+                    <th>Equipe 2</th>
+                    <th>Score 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    champ.map((equipe, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{equipe._id}</td>
+                          <td>{equipe.equipe1}</td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-score1'} defaultValue={equipe.score1}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>{equipe.equipe2}</td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-score2'} defaultValue={equipe.score2}></Form.Control>
+                            </Form.Group>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
+              <Button type='submit'>Enregistrer</Button>
+            </Form>
           </Card.Body>
         </Card>
       </Col>

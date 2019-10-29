@@ -6,6 +6,8 @@ const Top = () => {
   const [pointeurs, setPointeurs] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getJoueur()
     .then(res => {
       let joueurTable = []
@@ -35,14 +37,18 @@ const Top = () => {
         return joueurTable
       })
 
-      return setPointeurs(joueurTable)
+      return isSubscribed && setPointeurs(joueurTable)
     })
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   const [buteurs, setButeurs] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getJoueur()
     .then(res => {
       let joueurTable = []
@@ -72,14 +78,18 @@ const Top = () => {
         return joueurTable
       })
 
-      return setButeurs(joueurTable)
+      return isSubscribed && setButeurs(joueurTable)
     })
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   const [assists, setAssists] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+
     getJoueur()
     .then(res => {
       let joueurTable = []
@@ -109,14 +119,18 @@ const Top = () => {
         return joueurTable
       })
 
-      return setAssists(joueurTable)
+      return isSubscribed && setAssists(joueurTable)
     })
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   const [penalites, setPenalites] = useState([])
 
   useEffect(() => {
+    let isSubscribed = true
+    
     getJoueur()
     .then(res => {
       let joueurTable = []
@@ -146,9 +160,11 @@ const Top = () => {
         return joueurTable
       })
 
-      return setPenalites(joueurTable)
+      return isSubscribed && setPenalites(joueurTable)
     })
     .catch(err => console.log(err))
+
+    return () => isSubscribed = false
   }, [])
 
   const getJoueur = async () => {

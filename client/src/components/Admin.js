@@ -54,7 +54,7 @@ const Admin = () => {
       let assists = document.getElementById(joueur._id + '-assists')
       let penalites = document.getElementById(joueur._id + '-penalites')
 
-      if (joueur.match !== parseInt(match.value)) {
+      if (joueur.match !== parseInt(match.value) || joueur.buts !== parseInt(buts.value) || joueur.assists !== parseInt(assists.value) || joueur.penalites !== parseInt(penalites.value)) {
         joueurStats.push({
           'joueurID': joueur._id,
           'match': parseInt(match.value),
@@ -144,18 +144,20 @@ const Admin = () => {
       let points = document.getElementById(equipe._id + '-points')
       let malus = document.getElementById(equipe._id + '-malus')
 
-      newClassement.push({
-        'equipeID': equipe._id,
-        'match': parseInt(match.value),
-        'victoire': parseInt(victoire.value),
-        'nul': parseInt(nul.value),
-        'defaite': parseInt(defaite.value),
-        'butsplus': parseInt(butsplus.value),
-        'butsmoins': parseInt(butsmoins.value),
-        'diff': parseInt(butsplus.value) - parseInt(butsmoins.value),
-        'points': parseInt(points.value),
-        'malus': parseInt(malus.value),
-      })
+      if (equipe.match !== parseInt(match.value)) {
+        newClassement.push({
+          'equipeID': equipe._id,
+          'match': parseInt(match.value),
+          'victoire': parseInt(victoire.value),
+          'nul': parseInt(nul.value),
+          'defaite': parseInt(defaite.value),
+          'butsplus': parseInt(butsplus.value),
+          'butsmoins': parseInt(butsmoins.value),
+          'diff': parseInt(butsplus.value) - parseInt(butsmoins.value),
+          'points': parseInt(points.value),
+          'malus': parseInt(malus.value),
+        })
+      }
 
       return newClassement
     })

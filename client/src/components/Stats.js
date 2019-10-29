@@ -38,16 +38,19 @@ const Stats = (props) => {
   return (
     <Row className="justify-content-center">
       <Col xs={12} sm={12} lg={10} xl={8} className='stats-table'>
-      <Table responsive striped bordered hover variant='dark'>
+      <Table responsive striped bordered hover>
         <thead>
           <tr>
             <th>Nom</th>
             <th>Prénom</th>
-            <th className='text-center'>Matches</th>
-            <th className='text-center'>Buts</th>
-            <th className='text-center'>Assistes</th>
-            <th className='text-center'>Points</th>
-            <th className='text-center'>Pénalités</th>
+            <th className='text-center'>M</th>
+            <th className='text-center'>B</th>
+            <th className='text-center'>A</th>
+            <th className='text-center'>P</th>
+            <th className='text-center'>B/M</th>
+            <th className='text-center'>A/M</th>
+            <th className='text-center'>P/M</th>
+            <th className='text-center'>Pen</th>
           </tr>
         </thead>
         <tbody>
@@ -82,6 +85,15 @@ const Stats = (props) => {
                   {points}
                 </td>
                 <td className='text-center'>
+                  {buts / match}
+                </td>
+                <td className='text-center'>
+                  {assists / match}
+                </td>
+                <td className='text-center'>
+                  {points / match}
+                </td>
+                <td className='text-center'>
                   {penalites + ' min'}
                 </td>
               </tr>
@@ -91,6 +103,9 @@ const Stats = (props) => {
         })}
         </tbody>
       </Table>
+      <small>
+        M = Match, B = Buts, A = Assists, P = Points, Pen = Pénalités
+      </small>
       </Col>
     </Row>
   )

@@ -89,33 +89,99 @@ const Admin = () => {
     })
   }
 
-  // -----------> Ajout des matches <-----------
-  function submitMatch(e) {
+  // -----------> UPDATE CLASSEMENT <-----------
+  const [classement, setClassement] = useState([])
+
+  useEffect(() => {
+    let isSubscribed = true
+
+    getClassement()
+    .then(response => {
+      isSubscribed && setClassement(response)
+    })
+    .catch(err => console.log(err))
+
+    return () => isSubscribed = false
+  }, [classement])
+
+  const getClassement = async () => {
+    const response = await axios.get('/classementbdd')
+    const body = await response.data
+    const data = [...body]
+
+    data.sort((a,b) => {
+      const numeroA = a.points
+      const numeroB = b.points
+
+      let comparison = 0;
+      if (numeroA > numeroB) {
+        comparison = 1;
+      } else if (numeroA < numeroB) {
+        comparison = -1;
+      }
+      return comparison;
+    })
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+
+    return data
+  }
+
+  function submitClassement(e) {
     e.preventDefault()
 
-    let gameDate = document.getElementById('gameDate').value
-    let timestamp = new Date(gameDate).getTime() / 1000
-    let equipe1 = document.getElementById('equipe1').value
-    let equipe2 = document.getElementById('equipe2').value
-    let score1 = ''
-    let score2 = ''
-    let patinoire = equipe1 === 'champigny' ? 'home' : 'away'
-    let resultat = 'non joué'
+    let newClassement = []
 
-    let newGame = [{
-      'gameDate': gameDate,
-      'timestamp': timestamp,
-      'equipe1': equipe1,
-      'equipe2': equipe2,
-      'score1': score1,
-      'score2': score2,
-      'patinoire': patinoire,
-      'resultat': resultat
-    }]
+    classement.map((equipe, index) => {
+      let match = document.getElementById(equipe._id + '-match')
+      let victoire = document.getElementById(equipe._id + '-victoire')
+      let nul = document.getElementById(equipe._id + '-nul')
+      let defaite = document.getElementById(equipe._id + '-defaite')
+      let butsplus = document.getElementById(equipe._id + '-butsplus')
+      let butsmoins = document.getElementById(equipe._id + '-butsmoins')
+      let points = document.getElementById(equipe._id + '-points')
+      let malus = document.getElementById(equipe._id + '-malus')
 
-    axios.post('/calendrierbdd', newGame)
-    .catch(function(err) {
-      console.log('err : ', err)
+      newClassement.push({
+        'equipeID': equipe._id,
+        'match': parseInt(match.value),
+        'victoire': parseInt(victoire.value),
+        'nul': parseInt(nul.value),
+        'defaite': parseInt(defaite.value),
+        'butsplus': parseInt(butsplus.value),
+        'butsmoins': parseInt(butsmoins.value),
+        'diff': parseInt(butsplus.value) - parseInt(butsmoins.value),
+        'points': parseInt(points.value),
+        'malus': parseInt(malus.value),
+      })
+
+      return newClassement
+    })
+
+    newClassement.map((equipe, index) => {
+      let equipes = {
+        'match': equipe.match,
+        'victoire': equipe.victoire,
+        'nul': equipe.nul,
+        'defaite': equipe.defaite,
+        'butsplus': equipe.butsplus,
+        'butsmoins': equipe.butsmoins,
+        'diff': equipe.diff,
+        'points': equipe.points,
+        'malus': equipe.malus,
+      }
+
+      axios.put('/classementbdd/' + equipe.equipeID, equipes)
+      .then(function(response) {
+        response.status === 200 && getClassement().then(res => setClassement(res)).catch(err => console.log(err))
+      })
+      .catch(function(err) {
+        console.log('err : ', err)
+      })
+
+      return equipes
     })
   }
 
@@ -241,25 +307,85 @@ const Admin = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col xs={12} xl={4}>
+      <Col xs={12} xl={10}>
         <Card className='addGame'>
           <Card.Header>
-            Ajouter un match
+            Update classement
           </Card.Header>
           <Card.Body>
-            <Form onSubmit={submitMatch}>
-              <Form.Group>
-                <Form.Label>Date <small>(September 15, 2019 18:30:00)</small> : </Form.Label>
-                <Form.Control type="text" id='gameDate' placeholder='September 15, 2019 18:30:00'></Form.Control>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Equipe 1 : </Form.Label>
-                <Form.Control type="text" id='equipe1' placeholder='champigny'></Form.Control>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Equipe 2 : </Form.Label>
-                <Form.Control type="text" id='equipe2' placeholder='champigny'></Form.Control>
-              </Form.Group>
+            <Form onSubmit={submitClassement}>
+              <Table responsive striped hover>
+                <thead>
+                  <tr>
+                    <th>equipe</th>
+                    <th>M</th>
+                    <th>V</th>
+                    <th>N</th>
+                    <th>D</th>
+                    <th>B+</th>
+                    <th>B-</th>
+                    <th>Diff</th>
+                    <th>P</th>
+                    <th>Malus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    classement.map((equipe, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{equipe.equipe}</td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-match'} defaultValue={equipe.match}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control className='input-victoire' type="number" id={equipe._id + '-victoire'} defaultValue={equipe.victoire}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-nul'} defaultValue={equipe.nul}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-defaite'} defaultValue={equipe.defaite}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-butsplus'} defaultValue={equipe.butsplus}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-butsmoins'} defaultValue={equipe.butsmoins}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-diff'} defaultValue={equipe.diff}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-points'} defaultValue={equipe.points}></Form.Control>
+                            </Form.Group>
+                          </td>
+                          <td>
+                            <Form.Group>
+                              <Form.Control type="number" id={equipe._id + '-malus'} defaultValue={equipe.malus}></Form.Control>
+                            </Form.Group>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
               <Button type='submit'>Enregistrer</Button>
             </Form>
           </Card.Body>

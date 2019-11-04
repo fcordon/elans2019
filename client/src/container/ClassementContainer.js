@@ -13,11 +13,19 @@ const ClassementContainer = () => {
     data.sort((a,b) => {
       const numeroA = a.points
       const numeroB = b.points
+      const diffA = a.diff
+      const diffB = b.diff
 
       let comparison = 0;
       if (numeroA < numeroB) {
         comparison = 1;
-      } else if (numeroA > numeroB) {
+      } else if (numeroA === numeroB) {
+        if (diffA < diffB) {
+          comparison = 1;
+        } else {
+          comparison = -1;
+        }
+      } else {
         comparison = -1;
       }
       return comparison;

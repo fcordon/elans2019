@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import Home from "./pages/Home"
 import CalendrierPage from "./pages/Calendrier"
+import ResultatsPage from "./pages/Resultats"
 import EquipePage from "./pages/Equipe"
 import StatsPage from "./pages/Stats"
 import TopPage from "./pages/Top"
@@ -13,6 +14,7 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/calendrier' component={CalendrierPage}/>
+      <Route path='/resultats' component={ResultatsPage}/>
       <Route path='/lequipe' component={EquipePage}/>
       <Route path='/statistiques' component={StatsPage}/>
       <Route path='/top-five' component={TopPage}/>

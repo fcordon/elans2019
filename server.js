@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 
 // Models
 const Calendrier = require('./models/calendrier')
+const Championnat = require('./models/championnat')
 const Classement = require('./models/classement')
 const Joueurs = require('./models/joueur')
 
@@ -141,6 +142,33 @@ app.put('/joueurs/:_id', function(req, res) {
   let options = {new: false};
 
   Joueurs.updateOne({_id: req.params._id}, update, options, function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  })
+})
+
+//---->>>> GET CHAMPIONNAT <<<<----
+app.get('/championnat', async (req, res) => {
+  const calendrier = await Championnat.find()
+  return res.json(calendrier)
+})
+
+//---->>>> UPDATE CHAMPIONNAT <<<<----
+app.put('/championnat/:_id', function(req, res) {
+  let newData = req.body
+
+  let update = {
+    '$set': {
+      score1: newData.score1,
+      score2: newData.score2
+    }
+  };
+
+  let options = {new: false};
+
+  Championnat.updateOne({_id: req.params._id}, update, options, function(err, data) {
     if(err) {
       throw err;
     }

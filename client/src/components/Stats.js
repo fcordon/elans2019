@@ -89,13 +89,13 @@ const Stats = (props) => {
                   {points}
                 </td>
                 <td className='text-center'>
-                  {buts / match}
+                  {(buts / match).toFixed(2)}
                 </td>
                 <td className='text-center'>
-                  {assists / match}
+                  {(assists / match).toFixed(2)}
                 </td>
                 <td className='text-center'>
-                  {points / match}
+                  {(points / match).toFixed(2)}
                 </td>
                 <td className='text-center'>
                   {penalites + ' min'}

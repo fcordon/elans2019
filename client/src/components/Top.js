@@ -28,7 +28,7 @@ const Top = () => {
 
       data.map((joueur, index) => {
         if (index <= 4) {
-          let ratio = isNaN(parseInt(joueur.points) / parseInt(joueur.match)) ? 0 : parseInt(joueur.points) / parseInt(joueur.match)
+          let ratio = isNaN(parseInt(joueur.points) / parseInt(joueur.match)) ? 0 : (parseInt(joueur.points) / parseInt(joueur.match)).toFixed(2)
           let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero,ratio:ratio,points:joueur.points}
 
           joueurTable.push(joueurObjet)
@@ -69,7 +69,7 @@ const Top = () => {
 
       data.map((joueur, index) => {
         if (index <= 4) {
-          let ratio = isNaN(parseInt(joueur.buts) / parseInt(joueur.match)) ? 0 : parseInt(joueur.buts) / parseInt(joueur.match)
+          let ratio = isNaN(parseInt(joueur.buts) / parseInt(joueur.match)) ? 0 : (parseInt(joueur.buts) / parseInt(joueur.match)).toFixed(2)
           let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero,ratio:ratio,buts:joueur.buts}
 
           joueurTable.push(joueurObjet)
@@ -110,7 +110,7 @@ const Top = () => {
 
       data.map((joueur, index) => {
         if (index <= 4) {
-          let ratio = isNaN(parseInt(joueur.assists) / parseInt(joueur.match)) ? 0 : parseInt(joueur.assists) / parseInt(joueur.match)
+          let ratio = isNaN(parseInt(joueur.assists) / parseInt(joueur.match)) ? 0 : (parseInt(joueur.assists) / parseInt(joueur.match)).toFixed(2)
           let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero,ratio:ratio,assists:joueur.assists}
 
           joueurTable.push(joueurObjet)
@@ -130,7 +130,7 @@ const Top = () => {
 
   useEffect(() => {
     let isSubscribed = true
-    
+
     getJoueur()
     .then(res => {
       let joueurTable = []
@@ -151,7 +151,7 @@ const Top = () => {
 
       data.map((joueur, index) => {
         if (index <= 4) {
-          let ratio = isNaN(parseInt(joueur.penalites) / parseInt(joueur.match)) ? 0 : parseInt(joueur.penalites) / parseInt(joueur.match)
+          let ratio = isNaN(parseInt(joueur.penalites) / parseInt(joueur.match)) ? 0 : (parseInt(joueur.penalites) / parseInt(joueur.match)).toFixed(2)
           let joueurObjet = {nom:joueur.nom,prenom:joueur.prenom,numero:joueur.numero,ratio:ratio,penalites:joueur.penalites}
 
           joueurTable.push(joueurObjet)

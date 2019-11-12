@@ -18,8 +18,22 @@ const Resultats = () => {
   const getResult = async () => {
     const response = await axios.get('/championnat')
     const body = await response.data
+    const data = [...body]
 
-    return body
+    data.sort((a,b) => {
+      const dateA = a.timestamp
+      const dateB = b.timestamp
+
+      let comparison = 0;
+      if (dateA > dateB) {
+        comparison = 1;
+      } else if (dateA < dateB) {
+        comparison = -1;
+      }
+      return comparison;
+    })
+
+    return data
   }
 
   return (

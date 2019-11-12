@@ -114,9 +114,9 @@ const Admin = () => {
       const numeroB = b.points
 
       let comparison = 0;
-      if (numeroA > numeroB) {
+      if (numeroA < numeroB) {
         comparison = 1;
-      } else if (numeroA < numeroB) {
+      } else if (numeroA > numeroB) {
         comparison = -1;
       }
       return comparison;
@@ -503,6 +503,7 @@ const Admin = () => {
                 <thead>
                   <tr>
                     <th>Game ID</th>
+                    <th>Date</th>
                     <th>Equipe 1</th>
                     <th>Score 1</th>
                     <th>Equipe 2</th>
@@ -515,6 +516,7 @@ const Admin = () => {
                       return (
                         <tr key={index}>
                           <td>{equipe._id}</td>
+                          <td>{equipe.date}</td>
                           <td>{equipe.equipe1}</td>
                           <td>
                             <Form.Group>

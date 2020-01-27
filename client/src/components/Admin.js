@@ -314,7 +314,7 @@ const Admin = () => {
 
   return (
     <Row className='justify-content-center'>
-      <Col xs={12} xl={4}>
+      <Col xs={12} xl={6}>
         <Card>
           <Card.Header>
             Stats des joueurs

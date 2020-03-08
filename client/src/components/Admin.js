@@ -16,7 +16,7 @@ const Admin = () => {
     .catch(err => console.log(err))
 
     return () => isSubscribed = false
-  }, [stats])
+  }, [])
 
   const getJoueur = async () => {
     const response = await axios.get('/joueurs')
@@ -102,7 +102,7 @@ const Admin = () => {
     .catch(err => console.log(err))
 
     return () => isSubscribed = false
-  }, [classement])
+  }, [])
 
   const getClassement = async () => {
     const response = await axios.get('/classementbdd')
@@ -200,7 +200,7 @@ const Admin = () => {
     .catch(err => console.log(err))
 
     return () => isSubscribed = false
-  }, [game])
+  }, [])
 
   const getGame = async () => {
     const response = await axios.get('/calendrierbdd')
@@ -262,7 +262,7 @@ const Admin = () => {
     .catch(err => console.log(err))
 
     return () => isSubscribed = false
-  }, [champ])
+  }, [])
 
   const getChamp = async () => {
     const response = await axios.get('/championnat')

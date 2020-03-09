@@ -134,7 +134,7 @@ const Admin = () => {
 
     let newClassement = []
 
-    classement.map((equipe, index) => {
+    classement.map(equipe => {
       let match = document.getElementById(equipe._id + '-match')
       let victoire = document.getElementById(equipe._id + '-victoire')
       let nul = document.getElementById(equipe._id + '-nul')
@@ -144,7 +144,13 @@ const Admin = () => {
       let points = document.getElementById(equipe._id + '-points')
       let malus = document.getElementById(equipe._id + '-malus')
 
-      if (equipe.match !== parseInt(match.value)) {
+      if (
+        equipe.match !== parseInt(match.value) ||
+        equipe.butsplus !== parseInt(butsplus.value) ||
+        equipe.butsmoins !== parseInt(butsmoins.value) ||
+        equipe.points !== parseInt(points.value) ||
+        equipe.malus !== parseInt(malus.value)
+      ) {
         newClassement.push({
           'equipeID': equipe._id,
           'match': parseInt(match.value),
@@ -162,7 +168,7 @@ const Admin = () => {
       return newClassement
     })
 
-    newClassement.map((equipe, index) => {
+    newClassement.map(equipe => {
       let equipes = {
         'match': equipe.match,
         'victoire': equipe.victoire,
